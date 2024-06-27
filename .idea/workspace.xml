@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2798afcd-5f06-47ea-9887-34ed8817bcee" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Calculate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Calculator.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +68,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1719362362180</updated>
-      <workItem from="1719362363426" duration="46008000" />
+      <workItem from="1719362363426" duration="82410000" />
     </task>
     <task id="LOCAL-00001" summary="CalculateProject_Day1">
       <option name="closed" value="true" />
@@ -88,15 +86,35 @@
       <option name="project" value="LOCAL" />
       <updated>1719413473014</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="CalculateProject_Day2_morning">
+      <option name="closed" value="true" />
+      <created>1719454395941</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1719454395942</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="CalculateProject_Day1" />
-    <option name="LAST_COMMIT_MESSAGE" value="CalculateProject_Day1" />
+    <MESSAGE value="CalculateProject_Day2_morning" />
+    <option name="LAST_COMMIT_MESSAGE" value="CalculateProject_Day2_morning" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
