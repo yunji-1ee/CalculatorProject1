@@ -68,7 +68,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1719362362180</updated>
-      <workItem from="1719362363426" duration="82410000" />
+      <workItem from="1719362363426" duration="89820000" />
     </task>
     <task id="LOCAL-00001" summary="CalculateProject_Day1">
       <option name="closed" value="true" />
@@ -94,7 +94,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719454395942</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="CalculateProject_Day2_night">
+      <option name="closed" value="true" />
+      <created>1719499971888</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1719499971888</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,7 +122,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="CalculateProject_Day1" />
     <MESSAGE value="CalculateProject_Day2_morning" />
-    <option name="LAST_COMMIT_MESSAGE" value="CalculateProject_Day2_morning" />
+    <MESSAGE value="CalculateProject_Day2_night" />
+    <option name="LAST_COMMIT_MESSAGE" value="CalculateProject_Day2_night" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

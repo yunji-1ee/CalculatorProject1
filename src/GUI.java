@@ -39,6 +39,7 @@ public class GUI extends JFrame { // JFrame 상속받아옴
         setLocationRelativeTo(null); // 화면 가운데 배치
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창을 닫으면 프로그램도 종료시키기
 
+
 //#2.버튼
 
         // 버튼정렬
@@ -46,7 +47,7 @@ public class GUI extends JFrame { // JFrame 상속받아옴
         bt_panel.setBounds(25, 150, 350, 350); // 좌표로 직접 정렬, 크기조정하기
 
         String bt_names[] = { // 버튼이름
-                "AC", "식", "♡", "←",
+                "AC", "\uD83D\uDC40", "♡", "←",
                 "1", "2", "3", "+",
                 "4", "5", "6", "-",
                 "7", "8", "9", "x",
@@ -96,14 +97,14 @@ public class GUI extends JFrame { // JFrame 상속받아옴
 
         // 레이블 표시하기
         inputspace.setEnabled(false);
-        inputspace.setBounds(23, 30,170, 100); // JTextField 위치와 크기 설정
+        inputspace.setBounds(23, 80,350, 50); // JTextField 위치와 크기 설정
         inputspace.setCaretColor(Color.BLACK);
         inputspace.setFont(new Font("Arial", Font.BOLD, 40));
         consol_panel.add(BorderLayout.CENTER,inputspace);
         add(inputspace);
 
-        outputspace.setBounds(200,30,170,100);
-        outputspace.setFont(new Font("Arial", Font.BOLD,30 ));
+        outputspace.setBounds(30,30,400,30);
+        outputspace.setFont(new Font("Arial", Font.BOLD,20 ));
         consol_panel.add(outputspace);
         add(outputspace);
 
@@ -174,15 +175,12 @@ public class GUI extends JFrame { // JFrame 상속받아옴
             JButton operator_button = (JButton) e.getSource();
             String operator = operator_button.getText();
 
-            if(!Arrays.asList("AC","식","←").contains(operator)) {
+            if(!Arrays.asList("AC","\uD83D\uDC40","♡","←").contains(operator)) {
                 str_expression += operator_button.getText();
                 expression.add(str_expression);
             }
 
-
-            System.out.println("현재 큐: " + expression);
-
-            // if(!operator.equals("←")){
+            System.out.println("현재 스택: " + expression);
 
             //초기화 먼저 처리
             if (operator.equals("AC")) {
@@ -195,14 +193,18 @@ public class GUI extends JFrame { // JFrame 상속받아옴
                 inputspace.setText(currentNumInput);
                 //버튼으로 부터 입력받은 것 띄우기 -> 리셋해서 빈 화면 출력
             }
+            else if(operator.equals("♡")){
+                inputspace.setText("\uD83D\uDC8C  ");
+                outputspace.setText("집중하면 할 수 있어♡");
+
+            }
             //식 출력
-            else if (operator.equals("식")) { //받아온 택스트가 "CE"라면
+            else if (operator.equals("\uD83D\uDC40")) { //받아온 택스트가 "식 불러오기"라면
                 if(last_expression.isEmpty()){
-                    outputspace.setText(("식이 없습니다."));
+                    outputspace.setText(("** 등호(=)를 먼저 눌러주세요 **"));
                 }
                 else{
                     str_expression = expression.peek();
-                    expression.pop();
                     outputspace.setText(str_expression);
                 }
 
@@ -210,14 +212,26 @@ public class GUI extends JFrame { // JFrame 상속받아옴
             }
             //delete
             else if (operator.equals("←")) {
-                if (operator.isEmpty()) { // number도 empty임
+                if (operator_stack.isEmpty()) { // number도 empty임
+
                     if (expression.isEmpty()) {
                         return; // 모두 비어있음
+
                     } else { //숫자만 입력되어있는 경우
                         expression.pop();
-                        outputspace.setText("");
-                    }
-                } else {
+                        str_expression = expression.peek();
+                        if (expression.isEmpty())
+                            return;
+                        else{
+                                expression.pop();
+                                inputspace.setText("");
+                            }
+                        }
+
+                        inputspace.setText(str_expression);
+
+                }
+                    else { //operator에 뭐가 있음
                     String check = expression.peek();
                     expression.pop();
                     char last_char = check.charAt(check.length() - 1); //마지막 식의 마지막이 연산자인지 숫자인지
@@ -228,7 +242,7 @@ public class GUI extends JFrame { // JFrame 상속받아옴
                     } else //마지막이 숫자였다면
                         number_stack.pop();
                     inputspace.setText(expression.peek());
-                }
+                    }
             } //delete 기능 닫는 괄호
 
             //3) 그 외
@@ -254,10 +268,10 @@ public class GUI extends JFrame { // JFrame 상속받아옴
     private void calculate() {
         while (!operator_stack.isEmpty()) {
             String operator = operator_stack.pop();
-            double num2 = Double.parseDouble(number_stack.pop()); // 스택 -> 뒤에서부터 꺼내기
+            double num2 = Double.parseDouble(number_stack.pop());// 스택 -> 뒤에서부터 꺼내기
             double num1 = Double.parseDouble(number_stack.pop());
             double result = 0;
-
+            System.out.println();
             switch (operator) {
                 case "+":
                     result = num1 + num2;
@@ -265,7 +279,7 @@ public class GUI extends JFrame { // JFrame 상속받아옴
                 case "-":
                     result = num1 - num2;
                     break;
-                case "X":
+                case "x":
                     result = num1 * num2;
                     break;
                 case "/":
