@@ -68,7 +68,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1719362362180</updated>
-      <workItem from="1719362363426" duration="89820000" />
+      <workItem from="1719362363426" duration="96631000" />
     </task>
     <task id="LOCAL-00001" summary="CalculateProject_Day1">
       <option name="closed" value="true" />
@@ -102,7 +102,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719499971888</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="CalculateProject_Day2_night">
+      <option name="closed" value="true" />
+      <created>1719509163491</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719509163491</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,6 +140,11 @@
           <url>file://$PROJECT_DIR$/src/GUI.java</url>
           <line>33</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/GUI.java</url>
+          <line>142</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

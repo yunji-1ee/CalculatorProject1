@@ -1,11 +1,15 @@
 import java.awt.*; // 스윙은 awt의 컨테이너를 상속받는 클래스니깐 불러옴
 import javax.swing.*;
 import java.util.Arrays;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack; //이벤트처리할 때 스택사용
 
 import java.awt.event.ActionListener; //이벤트
 import java.awt.event.ActionEvent; //이벤트
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GUI extends JFrame { // JFrame 상속받아옴
 
@@ -14,17 +18,17 @@ public class GUI extends JFrame { // JFrame 상속받아옴
     JPanel consol_panel = new JPanel();
     //계산 레이블로 출력할 것
 
-    JTextField inputspace = new JTextField(); // 텍스트를 입력받기 위함
+    JTextArea inputspace = new JTextArea(); // 텍스트를 입력받기 위함
+    JScrollPane inputspace_scroll = new JScrollPane(inputspace); //inputspace에 스크롤 넣기
+
     JLabel outputspace =new JLabel();
 
-    // 3. 버튼 이벤트 처리 때 사용
     Stack<String> number_stack = new Stack<>(); // 숫자만 저장함
     Stack<String> operator_stack = new Stack<>(); // 연산자만 저장함
     Stack<String> expression = new Stack<>();
     String currentNumInput = "";
     String str_expression = "";
     String last_expression = "";
-
 
 
     public GUI() {
@@ -47,7 +51,7 @@ public class GUI extends JFrame { // JFrame 상속받아옴
         bt_panel.setBounds(25, 150, 350, 350); // 좌표로 직접 정렬, 크기조정하기
 
         String bt_names[] = { // 버튼이름
-                "AC", "\uD83D\uDC40", "♡", "←",
+                "AC", "\uD83D\uDC40", "⏱", "←",
                 "1", "2", "3", "+",
                 "4", "5", "6", "-",
                 "7", "8", "9", "x",
@@ -87,7 +91,9 @@ public class GUI extends JFrame { // JFrame 상속받아옴
         }
         add(bt_panel); // 화면에 띄우기
         bt[0].setFont(new Font("Arial", Font.PLAIN, 15));
-        bt[1].setFont(new Font("Arial", Font.PLAIN, 15));
+        bt[1].setFont(new Font("Arial", Font.PLAIN, 17));
+        bt[2].setFont(new Font("Arial", Font.PLAIN, 20));
+
 
 
 //#3. 입출력 레이블
@@ -107,6 +113,8 @@ public class GUI extends JFrame { // JFrame 상속받아옴
         outputspace.setFont(new Font("Arial", Font.BOLD,20 ));
         consol_panel.add(outputspace);
         add(outputspace);
+
+        inputspace.add(inputspace_scroll);
 
 
         // 프레임이 보이도록 활성화
@@ -131,8 +139,6 @@ public class GUI extends JFrame { // JFrame 상속받아옴
             System.out.println("숫자 스택: " + number_stack);
             System.out.println("연산자 스택: " + operator_stack);
             System.out.println("방정식 : " + str_expression);
-
-
         }
     }
 
@@ -146,29 +152,27 @@ public class GUI extends JFrame { // JFrame 상속받아옴
             //str_expression += equal_button.getText();
             //expression.add(str_expression);
 
-           if (equal.equals("=")) {  //결과값 출력
+            if (equal.equals("=")) {  //결과값 출력
 
                 if (!currentNumInput.isEmpty()) { //연산자키를 눌렀는데, 입력받은 숫자가 있을 때
                     number_stack.push(currentNumInput); //넘버스택에 입력받았던 숫자 넣기
                 }
                 last_expression = expression.peek();
                 System.out.println(last_expression);
-               System.out.println(str_expression);
+                System.out.println(str_expression);
 
                 calculate();
                 reset(); //수행 후 다시 초기화
             }
 
-
             System.out.println("연산자: " + equal);
             System.out.println("숫자 스택: " + number_stack);
             System.out.println("연산자 스택: " + operator_stack);
             System.out.println("방정식 : " + str_expression);
-
         } // {}action performe
     } // {}operator event listener
 
-    // #4-3. 나머지연산자 받아오기
+    //#4-3. 나머지연산자 받아오기
     class Operator implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -193,10 +197,13 @@ public class GUI extends JFrame { // JFrame 상속받아옴
                 inputspace.setText(currentNumInput);
                 //버튼으로 부터 입력받은 것 띄우기 -> 리셋해서 빈 화면 출력
             }
-            else if(operator.equals("♡")){
-                inputspace.setText("\uD83D\uDC8C  ");
-                outputspace.setText("집중하면 할 수 있어♡");
+            else if(operator.equals("⏱")){
+                final Date today = new Date();
+                final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                System.out.print( "현재시간 : " + dateFormat.format(today)+"\n");
 
+                inputspace.setText("시간을 소중히 ⌛");
+                outputspace.setText(dateFormat.format(today));
             }
             //식 출력
             else if (operator.equals("\uD83D\uDC40")) { //받아온 택스트가 "식 불러오기"라면
@@ -223,26 +230,25 @@ public class GUI extends JFrame { // JFrame 상속받아옴
                         if (expression.isEmpty())
                             return;
                         else{
-                                expression.pop();
-                                inputspace.setText("");
-                            }
+                            expression.pop();
+                            inputspace.setText("");
                         }
+                    }
 
-                        inputspace.setText(str_expression);
+                    inputspace.setText(str_expression);
 
                 }
-                    else { //operator에 뭐가 있음
+                else { //operator에 뭐가 있음
                     String check = expression.peek();
                     expression.pop();
                     char last_char = check.charAt(check.length() - 1); //마지막 식의 마지막이 연산자인지 숫자인지
-
 
                     if (last_char == '+' || last_char == '-' || last_char == '*' || last_char == '/') { //마지막 식이 연산자였다면
                         operator_stack.pop();
                     } else //마지막이 숫자였다면
                         number_stack.pop();
                     inputspace.setText(expression.peek());
-                    }
+                }
             } //delete 기능 닫는 괄호
 
             //3) 그 외
@@ -251,6 +257,9 @@ public class GUI extends JFrame { // JFrame 상속받아옴
                     number_stack.push(currentNumInput);
                     currentNumInput = "";
                 }
+                while (!operator_stack.isEmpty() && precedence(operator) <= precedence(operator_stack.peek())) {
+                    calculateTop();
+                }
                 operator_stack.push(operator);
                 inputspace.setText(operator);
             }
@@ -258,48 +267,70 @@ public class GUI extends JFrame { // JFrame 상속받아옴
             System.out.println("연산자: " + operator);
             System.out.println("숫자 스택: " + number_stack);
             System.out.println("연산자 스택: " + operator_stack);
-            System.out.println("방정식: " + str_expression);
-
-
+            System.out.println("최근 방정식: " + str_expression);
         } // {}action performe
     } // {}operator event listener
 
 //#5.연산 메소드
+    Map<String, Integer> operatorPrecedence = new HashMap<>();
+    // 맵 선언 : 연산자 우선순위를 저장하는 맵
+
+    private int precedence(String operator) {
+        return operatorPrecedence.getOrDefault(operator, -1);
+    }
+
+    private void calculateTop() {
+        double num2 = Double.parseDouble(number_stack.pop());// 스택 -> 뒤에서부터 꺼내기
+        double num1 = Double.parseDouble(number_stack.pop());
+        double result = 0;
+
+        // 연산자 우선순위
+        operatorPrecedence.put("+", 1);
+        operatorPrecedence.put("-", 1);
+        operatorPrecedence.put("x", 2);
+        operatorPrecedence.put("/", 2);
+
+        String operator = operator_stack.pop();
+
+        switch (operator) {
+            case "+":
+                result = num1 + num2;
+                break;
+            case "-":
+                result = num1 - num2;
+                break;
+            case "x":
+                result = num1 * num2;
+                break;
+            case "/":
+                result = num1 / num2;
+                break;
+        }
+        number_stack.push(String.valueOf(result)); //연산 결과를 받아와서 숫자스택에 넣기
+    }
+
     private void calculate() {
         while (!operator_stack.isEmpty()) {
-            String operator = operator_stack.pop();
-            double num2 = Double.parseDouble(number_stack.pop());// 스택 -> 뒤에서부터 꺼내기
-            double num1 = Double.parseDouble(number_stack.pop());
-            double result = 0;
-            System.out.println();
-            switch (operator) {
-                case "+":
-                    result = num1 + num2;
-                    break;
-                case "-":
-                    result = num1 - num2;
-                    break;
-                case "x":
-                    result = num1 * num2;
-                    break;
-                case "/":
-                    result = num1 / num2;
-                    break;
-
-            }
-            number_stack.push(String.valueOf(result));
+            calculateTop();
         }
         String current = number_stack.pop();
+      /*  if(Double.parseDouble(current) > 999999999999990.0){
+            inputspace.setText(String.format("%-15.10e", Double.parseDouble(current)));
+        }
+        else{
+        }
+        */
+
         inputspace.setText(current); //레이블에 결과 출력
         System.out.println("계산 결과: " + current); // (출력확인용) 터미널에도 출력
     }
 
-        public void reset(){
-           currentNumInput = "";
-           number_stack.clear(); //숫자스택비우기
-           operator_stack.clear(); //연산자스택 비우기
-       }
-
+    //초기화
+    private void reset(){
+        currentNumInput = "";
+        number_stack.clear(); //숫자스택비우기
+        operator_stack.clear(); //연산자스택 비우기
+    }
 
 
     public static void main(String[] args) {
