@@ -179,7 +179,7 @@ public class GUI extends JFrame { // JFrame 상속받아옴
             JButton operator_button = (JButton) e.getSource();
             String operator = operator_button.getText();
 
-            if(!Arrays.asList("AC","\uD83D\uDC40","♡","←").contains(operator)) {
+            if(!Arrays.asList("AC","\uD83D\uDC40","⏱","←").contains(operator)) {
                 str_expression += operator_button.getText();
                 expression.add(str_expression);
             }
